@@ -1,9 +1,41 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Bar, Doughnut, PolarArea } from "react-chartjs-2";
 
-import "@/lib/chart/register-chartjs";
+// Register Chart.js components BEFORE importing react-chartjs-2
+import {
+  ArcElement,
+  BarController,
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  DoughnutController,
+  Legend,
+  LinearScale,
+  PolarAreaController,
+  RadialLinearScale,
+  Title,
+  Tooltip,
+} from "chart.js";
+
+if (!(ChartJS as any).__oldUiRegistered) {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    RadialLinearScale,
+    BarController,
+    BarElement,
+    DoughnutController,
+    PolarAreaController,
+    ArcElement,
+    Title,
+    Tooltip,
+    Legend,
+  );
+  (ChartJS as any).__oldUiRegistered = true;
+}
+
+import { Bar, Doughnut, PolarArea } from "react-chartjs-2";
 
 import {
   buildDoughnutDemo,
@@ -97,7 +129,7 @@ export function InsightVerticalBarChart() {
 
   return (
     <div className="relative h-[280px] w-full min-h-[220px]">
-      <Bar data={config.data} options={config.options} />
+      <Bar data={config.data} options={config.options} redraw={false} />
     </div>
   );
 }
@@ -113,7 +145,7 @@ export function InsightHorizontalBarChart() {
 
   return (
     <div className="relative h-[320px] w-full min-h-[260px]">
-      <Bar data={config.data} options={config.options} />
+      <Bar data={config.data} options={config.options} redraw={false} />
     </div>
   );
 }
@@ -129,7 +161,7 @@ export function InsightStackedBarChart() {
 
   return (
     <div className="relative h-[300px] w-full min-h-[240px]">
-      <Bar data={config.data} options={config.options} />
+      <Bar data={config.data} options={config.options} redraw={false} />
     </div>
   );
 }
@@ -145,7 +177,7 @@ export function InsightDoughnutChart() {
 
   return (
     <div className="relative mx-auto h-[260px] w-full max-w-[280px] min-h-[220px]">
-      <Doughnut data={config.data} options={config.options} />
+      <Doughnut data={config.data} options={config.options} redraw={false} />
     </div>
   );
 }
@@ -161,7 +193,7 @@ export function InsightPolarAreaChart() {
 
   return (
     <div className="relative mx-auto h-[280px] w-full max-w-[320px] min-h-[240px]">
-      <PolarArea data={config.data} options={config.options} />
+      <PolarArea data={config.data} options={config.options} redraw={false} />
     </div>
   );
 }

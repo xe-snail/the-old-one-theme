@@ -31,6 +31,7 @@ function synchroniseChartJsFontFamily(): void {
   }
 }
 
+// Eagerly register Chart.js components at module load time
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -46,3 +47,5 @@ ChartJS.register(
 );
 
 synchroniseChartJsFontFamily();
+
+export { ChartJS };
